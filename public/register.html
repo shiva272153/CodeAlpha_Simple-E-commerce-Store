@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register | India Shoplume</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="container nav-content">
+      <a href="/" class="logo">India Shoplume</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="auth-container fade-in">
+      <h2 class="text-center" style="margin-bottom: 2rem;">Create Account</h2>
+      <form id="register-form">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="name" class="form-control" required placeholder="John Doe" />
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="email" class="form-control" required placeholder="you@example.com" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="password" class="form-control" required placeholder="Min 6 chars" />
+        </div>
+        <button type="submit" class="btn" style="width: 100%;">Create Account</button>
+      </form>
+      <p class="text-center mt-4 text-small">
+        Already have an account? <a href="login.html" style="color: var(--accent-color);">Sign in</a>
+      </p>
+    </div>
+  </div>
+
+  <script type="module" src="js/auth.js"></script>
+</body>
+
+</html>

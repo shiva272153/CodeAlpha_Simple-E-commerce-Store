@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout | India Shoplume</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="container nav-content">
+      <a href="/" class="logo">India Shoplume</a>
+      <ul class="nav-links">
+        <li><a href="cart.html">Back to Cart</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container" style="padding: 4rem 1.5rem;">
+    <h1 class="fade-in" style="margin-bottom: 2rem;">Checkout</h1>
+
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 3rem;">
+
+      <!-- Shipping Form -->
+      <div class="card fade-in" style="padding: 2rem;">
+        <h2 style="margin-bottom: 1.5rem;">Shipping Address</h2>
+        <form id="checkout-form" style="display: grid; gap: 1rem;">
+          <div class="form-group">
+            <label>Address Line 1</label>
+            <input type="text" id="line1" class="form-control" required placeholder="123 Main St" />
+          </div>
+          <div class="form-group">
+            <label>Address Line 2 (Optional)</label>
+            <input type="text" id="line2" class="form-control" placeholder="Apt 4B" />
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label>City</label>
+              <input type="text" id="city" class="form-control" required />
+            </div>
+            <div class="form-group">
+              <label>State</label>
+              <input type="text" id="state" class="form-control" required />
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label>Zip Code</label>
+              <input type="text" id="zip" class="form-control" required />
+            </div>
+            <div class="form-group">
+              <label>Country</label>
+              <input type="text" id="country" class="form-control" required value="India" />
+            </div>
+          </div>
+
+          <h2 style="margin-top: 2rem; margin-bottom: 1rem;">Payment Method</h2>
+          <div class="form-group">
+            <div style="display:flex; gap: 1rem; flex-wrap: wrap;">
+              <label style="display:flex; align-items:center; cursor:pointer;">
+                <input type="radio" name="paymentMethod" value="Card" checked onchange="togglePayment(this.value)" />
+                <span style="margin-left:5px;">Credit/Debit Card</span>
+              </label>
+              <label style="display:flex; align-items:center; cursor:pointer;">
+                <input type="radio" name="paymentMethod" value="UPI" onchange="togglePayment(this.value)" />
+                <span style="margin-left:5px;">UPI</span>
+              </label>
+              <label style="display:flex; align-items:center; cursor:pointer;">
+                <input type="radio" name="paymentMethod" value="COD" onchange="togglePayment(this.value)" />
+                <span style="margin-left:5px;">Cash on Delivery</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Card Details -->
+          <div id="payment-Card" class="payment-section" style="margin-top: 1rem;">
+            <div class="form-group">
+              <label>Card Number</label>
+              <input type="text" id="card-number" class="form-control" placeholder="0000 0000 0000 0000" />
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="form-group">
+                <label>Expiry</label>
+                <input type="text" id="card-expiry" class="form-control" placeholder="MM/YY" />
+              </div>
+              <div class="form-group">
+                <label>CVV</label>
+                <input type="text" id="card-cvv" class="form-control" placeholder="123" />
+              </div>
+            </div>
+          </div>
+
+          <!-- UPI Details -->
+          <div id="payment-UPI" class="payment-section" style="margin-top: 1rem; display: none;">
+            <div class="form-group">
+              <label>UPI ID</label>
+              <input type="text" id="upi-id" class="form-control" placeholder="user@upi" />
+            </div>
+          </div>
+
+          <!-- COD Message -->
+          <div id="payment-COD" class="payment-section" style="margin-top: 1rem; display: none;">
+            <p style="opacity: 0.8;">You can pay via Cash or UPI upon delivery.</p>
+          </div>
+
+          <button type="submit" class="btn" style="margin-top: 1rem;">Place Order</button>
+        </form>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="card fade-in" style="padding: 2rem; height: fit-content;">
+        <h3 style="margin-bottom: 1.5rem;">Order Summary</h3>
+        <div id="order-items">
+          <!-- Items Injected -->
+        </div>
+        <div
+          style="border-top: 1px solid var(--glass-border); margin-top: 1rem; padding-top: 1rem; display: flex; justify-content: space-between; font-weight: bold; font-size: 1.2rem;">
+          <span>Total</span>
+          <span id="order-total">₹0</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script type="module" src="js/checkout.js"></script>
+</body>
+
+</html>

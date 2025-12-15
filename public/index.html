@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>India Shoplume | Premium E-commerce</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container nav-content">
+      <a href="/" class="logo">India Shoplume</a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="/">Home</a></li>
+        <li id="auth-link"><a href="login.html">Login</a></li>
+        <li><a href="cart.html">Cart <span id="cart-count">(0)</span></a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section (Dynamic) -->
+  <header class="container" style="padding: 4rem 1.5rem; text-align: center;">
+    <h1 class="fade-in"
+      style="font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(to right, #38bdf8, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+      Next Gen Shopping
+    </h1>
+    <p class="fade-in" style="opacity: 0.8; font-size: 1.2rem; max-width: 600px; margin: 0 auto 2rem;">
+      Experience the future of e-commerce with our curated collection of premium products.
+    </p>
+  </header>
+
+  <!-- Products Grid -->
+  <main class="container">
+    <div id="products" class="card-grid fade-in">
+      <!-- Products Injected Here -->
+      <div style="grid-column: 1/-1; text-align: center;">
+        <div class="spinner"></div> Loading products...
+      </div>
+    </div>
+  </main>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+
+</html>

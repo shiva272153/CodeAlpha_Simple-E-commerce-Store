@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Cart | India Shoplume</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="container nav-content">
+      <a href="/" class="logo">India Shoplume</a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container" style="padding: 4rem 1.5rem;">
+    <h1 class="fade-in" style="margin-bottom: 2rem;">Shopping Cart</h1>
+
+    <div id="cart-items" class="fade-in">
+      <!-- Items Injected Here -->
+    </div>
+
+    <div class="card fade-in"
+      style="margin-top: 2rem; padding: 2rem; display: flex; justify-content: space-between; align-items: center;">
+      <h2 id="cart-total">Total: ₹0</h2>
+      <button id="checkout-btn" class="btn">Proceed to Checkout</button>
+    </div>
+  </div>
+
+  <script type="module">
+    import { Store } from './js/store.js';
+
+    function renderCart() {
+      const cart = Store.getCart();
+      const container = document.getElementById('cart-items');
+      const totalEl = document.getElementById('cart-total');
+
+      if (cart.length === 0) {
+        container.innerHTML = '<p>Your cart is empty.</p>';
+        totalEl.innerText = 'Total: ₹0';
+        return;
+      }
+
+      container.innerHTML = cart.map((item, idx) => `
+        <div class="card" style="margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;">
+          <img src="${item.imageUrl || 'https://via.placeholder.com/100'}" style="width: 100px; height: 100px; object-fit: cover;" />
+          <div style="flex-grow: 1; padding: 1rem;">
+            <h3>${item.name}</h3>
+            <p>₹${item.price}</p>
+          </div>
+          <div style="padding: 1rem; display: flex; align-items: center; gap: 1rem;">
+            <input type="number" min="1" value="${item.quantity}" 
+                   onchange="updateQty(${idx}, this.value)"
+                   class="form-control" style="width: 80px;" />
+            <button onclick="removeItem(${idx})" class="btn-outline" style="border-radius: 8px; padding: 0.5rem;">✕</button>
+          </div>
+        </div>
+      `).join('');
+
+      const total = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
+      totalEl.innerText = `Total: ₹${total}`;
+    }
+
+    // Expose helpers to window for inline onclicks (simple approach)
+    window.updateQty = (idx, qty) => {
+      Store.updateCartQty(idx, qty);
+      renderCart();
+    };
+    window.removeItem = (idx) => {
+      Store.removeFromCart(idx);
+      renderCart();
+    };
+
+    renderCart();
+
+    document.getElementById('checkout-btn').addEventListener('click', () => {
+      const cart = Store.getCart();
+      if (cart.length === 0) return alert('Cart is empty');
+      window.location.href = 'checkout.html';
+    });
+  </script>
+</body>
+
+</html>

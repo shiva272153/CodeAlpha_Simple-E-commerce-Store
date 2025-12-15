@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Details | India Shoplume</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="container nav-content">
+      <a href="/" class="logo">India Shoplume</a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="cart.html">Cart <span id="cart-count">(0)</span></a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container" style="padding: 4rem 1.5rem;">
+    <!-- Loading State -->
+    <div id="loading" class="text-center" style="margin-top: 4rem;">
+      <div class="spinner"></div> Loading details...
+    </div>
+
+    <!-- Product Container (Hidden until loaded) -->
+    <div id="product-container" class="fade-in" style="display: none;">
+      <div class="card"
+        style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; padding: 2rem; align-items: start;">
+        <!-- Left: Image -->
+        <div>
+          <img id="p-img" src="" alt="Product"
+            style="width: 100%; border-radius: 12px; height: 400px; object-fit: cover;" />
+        </div>
+
+        <!-- Right: Details -->
+        <div>
+          <span id="p-cat"
+            style="color: var(--accent-color); font-weight: 600; text-transform: uppercase; font-size: 0.9rem;">Category</span>
+          <h1 id="p-name" style="margin: 0.5rem 0 1rem; font-size: 2.5rem; line-height: 1.2;">Product Name</h1>
+          <p id="p-desc" style="opacity: 0.8; margin-bottom: 2rem; font-size: 1.1rem;">
+            Full product description goes here...
+          </p>
+
+          <div style="margin-bottom: 2rem;">
+            <span style="font-size: 0.9rem; opacity: 0.7;">Price</span>
+            <div id="p-price" style="font-size: 2rem; font-weight: 700;">₹0</div>
+          </div>
+
+          <div style="display: flex; gap: 1rem;">
+            <button id="add-cart-btn" class="btn" style="flex: 1;">Add to Cart</button>
+            <button id="buy-now-btn" class="btn-outline" style="flex: 1;">Buy Now</button>
+          </div>
+
+          <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--glass-border);">
+            <p style="font-size: 0.9rem; opacity: 0.6;">
+              ✓ In Stock & Ready to Ship<br>
+              ✓ Premium Quality Guaranteed<br>
+              ✓ 30-Day Returns
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Not Found State -->
+    <div id="error-container" class="text-center fade-in" style="display: none; margin-top: 4rem;">
+      <h2>Product Not Found</h2>
+      <p>The product you are looking for does not exist.</p>
+      <a href="/" class="btn mt-4">Go Back Home</a>
+    </div>
+
+  </div>
+
+  <script type="module" src="js/product.js"></script>
+</body>
+
+</html>

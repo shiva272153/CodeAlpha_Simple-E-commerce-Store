@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Track Package | India Shoplume</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+            list-style: none;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--glass-border);
+            border: 2px solid var(--text-color);
+        }
+
+        .timeline-item.active::before {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-color);
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 9px;
+            top: 20px;
+            bottom: -35px;
+            width: 2px;
+            background: var(--glass-border);
+        }
+
+        .timeline-item:last-child::after {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="/" class="logo">India Shoplume</a>
+            <ul class="nav-links">
+                <li><a href="orders.html">Back to Orders</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="padding: 4rem 1.5rem;">
+        <h1 class="fade-in" style="margin-bottom: 2rem;">Track Package</h1>
+
+        <div class="card fade-in" style="padding: 2rem; max-width: 600px; margin: 0 auto;">
+            <h3 id="order-id-display"
+                style="margin-bottom: 2rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 1rem;">Order
+                #...</h3>
+
+            <ul class="timeline">
+                <li class="timeline-item active">
+                    <h4>Ordered</h4>
+                    <p style="font-size: 0.9rem; opacity: 0.7;">Order received and confirmed.</p>
+                </li>
+                <li class="timeline-item active">
+                    <h4>Shipped</h4>
+                    <p style="font-size: 0.9rem; opacity: 0.7;">Your package has left the warehouse.</p>
+                </li>
+                <li class="timeline-item">
+                    <h4>Out for Delivery</h4>
+                    <p style="font-size: 0.9rem; opacity: 0.7;">Agent is on the way.</p>
+                </li>
+                <li class="timeline-item">
+                    <h4>Delivered</h4>
+                    <p style="font-size: 0.9rem; opacity: 0.7;">Package delivered to you.</p>
+                </li>
+            </ul>
+
+            <div style="margin-top: 2rem; padding: 1rem; background: rgba(56, 189, 248, 0.1); border-radius: 12px;">
+                <strong>Estimated Delivery:</strong> Tomorrow by 9 PM
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+        if (id) document.getElementById('order-id-display').innerText = `Order #${id.slice(-6).toUpperCase()}`;
+    </script>
+</body>
+
+</html>

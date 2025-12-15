@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Details | India Shoplume</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="/" class="logo">India Shoplume</a>
+            <ul class="nav-links">
+                <li><a href="orders.html">Back to Orders</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="padding: 4rem 1.5rem;">
+        <h1 class="fade-in" style="margin-bottom: 2rem;">Order Details</h1>
+        <div id="order-details-container" class="fade-in">
+            <div class="spinner"></div> Loading details...
+        </div>
+    </div>
+
+    <script type="module">
+        import { apiFetch } from './js/api.js';
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+
+        async function loadDetails() {
+            const container = document.getElementById('order-details-container');
+            if (!id) {
+                container.innerHTML = '<p>Order ID missing.</p>';
+                return;
+            }
+
+            try {
+                // Re-using my orders endpoint and finding locally since we don't have Get Single Order endpoint efficiently yet
+                // But wait, user can only see their own. Let's implementing a hacky find for now or just fetch all and filter.
+                // Ideally Backend should have GET /api/orders/:id
+                // For now, let's fetch all 'my' orders and filter.
+                const orders = await apiFetch('/orders/my');
+                const order = orders.find(o => o._id === id);
+
+                if (!order) {
+                    container.innerHTML = '<p>Order not found.</p>';
+                    return;
+                }
+
+                container.innerHTML = `
+                <div class="card" style="padding: 2rem;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom: 2rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 1rem;">
+                        <div>
+                            <h3>Order #${order._id.slice(-6).toUpperCase()}</h3>
+                            <p style="opacity:0.7;">Placed on ${new Date(order.createdAt).toLocaleDateString()}</p>
+                        </div>
+                        <div class="text-right">
+                             <div style="font-size:1.5rem; font-weight:bold;">₹${order.total}</div>
+                             <span class="badge" style="background:var(--accent-color); color:black; padding:0 0.5rem; border-radius:10px;">${order.status}</span>
+                        </div>
+                    </div>
+
+                    <div style="display:grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
+                        <div>
+                            <h4>Items</h4>
+                            ${order.items.map(item => `
+                                <div style="display:flex; justify-content:space-between; margin-top:1rem;">
+                                    <span>${item.name} x ${item.quantity}</span>
+                                    <span>₹${item.price * item.quantity}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 12px;">
+                            <h4>Shipping Address</h4>
+                            <p style="opacity:0.8; margin-top:0.5rem;">
+                                ${order.shippingAddress.line1}<br>
+                                ${order.shippingAddress.city}, ${order.shippingAddress.state}<br>
+                                ${order.shippingAddress.zip}<br>
+                                ${order.shippingAddress.country}
+                            </p>
+                            
+                            <h4 style="margin-top: 1.5rem;">Payment Method</h4>
+                            <p>${order.paymentMethod || 'COD'}</p>
+                        </div>
+                    </div>
+                </div>
+              `;
+
+            } catch (err) {
+                console.error(err);
+                container.innerHTML = '<p>Error loading details.</p>';
+            }
+        }
+
+        loadDetails();
+    </script>
+</body>
+
+</html>
